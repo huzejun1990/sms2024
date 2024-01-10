@@ -9,8 +9,9 @@ import (
 func main() {
 	s := sms.NewSms()
 	req := &sms.SendSmsReq{
-		PhoneNumberSet:   []string{"13800138000", "13800138001"},
-		TemplateId:       "1244",
+		PhoneNumberSet: []string{"13800138000", "13800138001"},
+		//TemplateId:       "1244",
+		TemplateName:     "零声教育-短信模板1",
 		TemplateParamSet: []string{"123456", "5"},
 	}
 	res, err := s.Send(req)

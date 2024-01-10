@@ -8,6 +8,7 @@ import (
 	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111"
 	"log"
 	"sms2024/config"
+	"sms2024/sms/template"
 )
 
 type Sms struct {
@@ -50,8 +51,9 @@ func getClient(region ...string) (*sms.Client, error) {
 }
 
 type SendSmsReq struct {
-	PhoneNumberSet   []string
-	TemplateId       string
+	PhoneNumberSet []string
+	//TemplateId       string
+	TemplateName     string
 	TemplateParamSet []string
 }
 
@@ -65,13 +67,18 @@ func (s *Sms) Send(req *SendSmsReq) (res *SendSmsRes, err error) {
 		log.Println(err)
 		return
 	}
+
+	t, err := template.GetTemplate(req.TemplateName)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 	// 实例化一个请求对象,每个接口都会对应一个request对象
 	request := sms.NewSendSmsRequest()
-
 	request.PhoneNumberSet = common.StringPtrs(req.PhoneNumberSet)
 	request.SmsSdkAppId = common.StringPtr(s.SmsSdkAppId)
 	request.SignName = common.StringPtr(s.SignName)
-	request.TemplateId = common.StringPtr(req.TemplateId)
+	request.TemplateId = common.StringPtr(t.ID)
 	request.TemplateParamSet = common.StringPtrs(req.TemplateParamSet)
 
 	// 返回的resp是一个SendSmsResponse的实例，与请求对象对应
