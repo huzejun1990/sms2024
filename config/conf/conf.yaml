@@ -1,0 +1,5 @@
+TencentCloudSms:
+  Endpoint: "sms.tencentcloudapi.com"
+  SdkAppId: "1400881659"
+  DefaultSignName: "签名"
+  DefaultRegion: "ap-guangzhou"

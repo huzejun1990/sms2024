@@ -7,6 +7,7 @@ import (
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111"
 	"log"
+	"sms2024/config"
 )
 
 type Sms struct {
@@ -22,26 +23,27 @@ func init() {
 
 func NewSms() *Sms {
 	return &Sms{
-		SignName:    "签名",
-		SmsSdkAppId: "1400881659",
+		SignName:    config.Conf.GetString("TencentCloudSms.DefaultSignName"),
+		SmsSdkAppId: config.Conf.GetString("TencentCloudSms.SdkAppId"),
 	}
 }
 
 func getCredential() {
 	credential = common.NewCredential(
-		"AKIDJSN5asxobJySrPM3hAPl4C8GLG3jDUaU",
-		"oaSak0SoEwdLIBhLyX1iWBqWDqT0TuX6",
+		config.Secret.GetString("TencentCloudApiKey.SecretId"),
+		config.Secret.GetString("TencentCloudApiKey.SecretKey"),
 	)
 }
 
 func getClient(region ...string) (*sms.Client, error) {
-	defaultRegion := "ap-guangzhou"
+	defaultRegion := config.Conf.GetString("TencentCloudSms.DefaultRegion")
 	if len(region) > 0 {
 		defaultRegion = region[0]
 	}
 	// 实例化一个client选项，可选的，没有特殊需求可以跳过
 	cpf := profile.NewClientProfile()
-	cpf.HttpProfile.Endpoint = "sms.tencentcloudapi.com"
+	//cpf.HttpProfile.Endpoint = "sms.tencentcloudapi.com"
+	cpf.HttpProfile.Endpoint = config.Conf.GetString("TencentCloudSms.Endpoint")
 	// 实例化要请求产品的client对象,clientProfile是可选的
 	client, err := sms.NewClient(credential, defaultRegion, cpf)
 	return client, err
