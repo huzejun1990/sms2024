@@ -38,5 +38,8 @@ func getConf(configName, configPath string) *viper.Viper {
 func (c *config) GetString(key string) string {
 	//return c.GetString(key) //循环调用
 	return c.viper.GetString(key)
+}
 
+func (c *config) GetInt(key string) int {
+	return c.viper.GetInt(key)
 }

@@ -1,5 +1,9 @@
 TencentCloudSms:
   Endpoint: "sms.tencentcloudapi.com"
   SdkAppId: "1400881659"
-  DefaultSignName: "签名"
+  DefaultSignName: "成都零声信息科技有限公司"
   DefaultRegion: "ap-guangzhou"
+Verification:
+  SignName: "成都零声信息科技有限公司"
+  TempName: "零声教育-短信模板1"
+  ExpireTs: 300

@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
+	_ "sms2024/redis"
 	//"net/http"
 	"sms2024/web"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {

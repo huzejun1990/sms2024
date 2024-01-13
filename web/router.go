@@ -6,4 +6,7 @@ import "github.com/gin-gonic/gin"
 func InitRouter(r *gin.Engine) {
 	smsGroup := r.Group("/sms")
 	smsGroup.POST("/send", Send)
+	smsGroup.POST("/send/verification", SendVerification)
+	smsGroup.POST("/check/verification", CheckVerification)
+
 }
