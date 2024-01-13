@@ -2,6 +2,7 @@
 package sms
 
 import (
+	errors2 "errors"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
@@ -73,6 +74,12 @@ func (s *Sms) Send(req *SendSmsReq) (res *SendSmsRes, err error) {
 		log.Println(err)
 		return
 	}
+	if t.ParamsCount != len(req.TemplateParamSet) {
+		err = errors2.New("模板参数不匹配")
+		log.Println(err)
+		return
+	}
+
 	// 实例化一个请求对象,每个接口都会对应一个request对象
 	request := sms.NewSendSmsRequest()
 	request.PhoneNumberSet = common.StringPtrs(req.PhoneNumberSet)

@@ -15,8 +15,9 @@ type tempData struct {
 }
 
 type Template struct {
-	ID       string
-	TempName string
+	ID          string
+	TempName    string
+	ParamsCount int
 }
 
 func init() {
@@ -25,12 +26,14 @@ func init() {
 	}
 
 	temp1 := &Template{
-		ID:       "13333168",
-		TempName: "零声教育-短信模板1",
+		ID:          "13333168",
+		TempName:    "零声教育-短信模板1",
+		ParamsCount: 2,
 	}
 	temp2 := &Template{
-		ID:       "683784",
-		TempName: "TCP/IP",
+		ID:          "683784",
+		TempName:    "TCP/IP",
+		ParamsCount: 0,
 	}
 	Register(temp1.TempName, temp1)
 	Register(temp2.TempName, temp2)

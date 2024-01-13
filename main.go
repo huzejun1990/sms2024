@@ -1,27 +1,19 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"sms2024/sms"
+	//"net/http"
+	"sms2024/web"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	s := sms.NewSms()
-	req := &sms.SendSmsReq{
-		PhoneNumberSet: []string{"13800138000", "13800138001"},
-		//TemplateId:       "1244",
-		TemplateName:     "零声教育-短信模板1",
-		TemplateParamSet: []string{"123456", "5"},
-	}
-	res, err := s.Send(req)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	fmt.Println(res.ToJsonString())
-
-	/*	fmt.Println(config.Conf.GetString("TencentCloudSms.Endpoint"))
-		fmt.Println(config.Secret.GetString("TencentCloudApiKey.SecretId"))*/
-
+	r := gin.Default()
+	web.InitRouter(r)
+	/*	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "pong",
+		})
+	})*/
+	r.Run(":8080") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
